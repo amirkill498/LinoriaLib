@@ -5,14 +5,14 @@ local ThemeManager = {} do
 
 	ThemeManager.Library = nil
 	ThemeManager.BuiltInThemes = {
-		['Default'] 		= { 1, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"1c1c1c","_G.AccentColor":"0055ff","BackgroundColor":"141414","OutlineColor":"323232"}') },
-		['BBot'] 			= { 2, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"1e1e1e","_G.AccentColor":"7e48a3","BackgroundColor":"232323","OutlineColor":"141414"}') },
-		['Fatality']		= { 3, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"1e1842","_G.AccentColor":"c50754","BackgroundColor":"191335","OutlineColor":"3c355d"}') },
-		['Jester'] 			= { 4, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"242424","_G.AccentColor":"db4467","BackgroundColor":"1c1c1c","OutlineColor":"373737"}') },
-		['Mint'] 			= { 5, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"242424","_G.AccentColor":"3db488","BackgroundColor":"1c1c1c","OutlineColor":"373737"}') },
-		['Tokyo Night'] 	= { 6, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"191925","_G.AccentColor":"6759b3","BackgroundColor":"16161f","OutlineColor":"323232"}') },
-		['Ubuntu'] 			= { 7, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"3e3e3e","_G.AccentColor":"e2581e","BackgroundColor":"323232","OutlineColor":"191919"}') },
-		['Quartz'] 			= { 8, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"232330","_G.AccentColor":"426e87","BackgroundColor":"1d1b26","OutlineColor":"27232f"}') },
+		['Default'] 		= { 1, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"1c1c1c",".AccentColor":"0055ff","BackgroundColor":"141414","OutlineColor":"323232"}') },
+		['BBot'] 			= { 2, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"1e1e1e",".AccentColor":"7e48a3","BackgroundColor":"232323","OutlineColor":"141414"}') },
+		['Fatality']		= { 3, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"1e1842",".AccentColor":"c50754","BackgroundColor":"191335","OutlineColor":"3c355d"}') },
+		['Jester'] 			= { 4, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"242424",".AccentColor":"db4467","BackgroundColor":"1c1c1c","OutlineColor":"373737"}') },
+		['Mint'] 			= { 5, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"242424",".AccentColor":"3db488","BackgroundColor":"1c1c1c","OutlineColor":"373737"}') },
+		['Tokyo Night'] 	= { 6, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"191925",".AccentColor":"6759b3","BackgroundColor":"16161f","OutlineColor":"323232"}') },
+		['Ubuntu'] 			= { 7, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"3e3e3e",".AccentColor":"e2581e","BackgroundColor":"323232","OutlineColor":"191919"}') },
+		['Quartz'] 			= { 8, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"232330",".AccentColor":"426e87","BackgroundColor":"1d1b26","OutlineColor":"27232f"}') },
 	}
 
 	function ThemeManager:ApplyTheme(theme)
@@ -37,14 +37,14 @@ local ThemeManager = {} do
 
 	function ThemeManager:ThemeUpdate()
 		-- This allows us to force apply themes without loading the themes tab :)
-		local options = { "FontColor", "MainColor", "_G.AccentColor", "BackgroundColor", "OutlineColor" }
+		local options = { "FontColor", "MainColor", ".AccentColor", "BackgroundColor", "OutlineColor" }
 		for i, field in next, options do
 			if Options and Options[field] then
 				self.Library[field] = Options[field].Value
 			end
 		end
 
-		self.Library._G.AccentColorDark = self.Library:GetDarkerColor(self.Library._G.AccentColor);
+		self.Library..AccentColorDark = self.Library:GetDarkerColor(self.Library..AccentColor);
 		self.Library:UpdateColorsUsingRegistry()
 	end
 
@@ -78,7 +78,7 @@ local ThemeManager = {} do
 	function ThemeManager:CreateThemeManager(groupbox)
 		groupbox:AddLabel('Background color'):AddColorPicker('BackgroundColor', { Default = self.Library.BackgroundColor });
 		groupbox:AddLabel('Main color')	:AddColorPicker('MainColor', { Default = self.Library.MainColor });
-		groupbox:AddLabel('Accent color'):AddColorPicker('_G.AccentColor', { Default = self.Library._G.AccentColor });
+		groupbox:AddLabel('Accent color'):AddColorPicker('.AccentColor', { Default = self.Library..AccentColor });
 		groupbox:AddLabel('Outline color'):AddColorPicker('OutlineColor', { Default = self.Library.OutlineColor });
 		groupbox:AddLabel('Font color')	:AddColorPicker('FontColor', { Default = self.Library.FontColor });
 
@@ -135,7 +135,7 @@ local ThemeManager = {} do
 
 		Options.BackgroundColor:OnChanged(UpdateTheme)
 		Options.MainColor:OnChanged(UpdateTheme)
-		Options._G.AccentColor:OnChanged(UpdateTheme)
+		Options..AccentColor:OnChanged(UpdateTheme)
 		Options.OutlineColor:OnChanged(UpdateTheme)
 		Options.FontColor:OnChanged(UpdateTheme)
 	end
@@ -162,7 +162,7 @@ local ThemeManager = {} do
 		end
 
 		local theme = {}
-		local fields = { "FontColor", "MainColor", "_G.AccentColor", "BackgroundColor", "OutlineColor" }
+		local fields = { "FontColor", "MainColor", ".AccentColor", "BackgroundColor", "OutlineColor" }
 
 		for _, field in next, fields do
 			theme[field] = Options[field].Value:ToHex()
