@@ -32,7 +32,7 @@ local Library = {
     FontColor = Color3.fromRGB(255, 255, 255);
     MainColor = Color3.fromRGB(28, 28, 28);
     BackgroundColor = Color3.fromRGB(20, 20, 20);
-    _G.AccentColor = Color3.fromRGB(255, 107, 0);
+    AccentColor = Color3.fromRGB(255, 107, 0);
     OutlineColor = Color3.fromRGB(50, 50, 50);
     RiskColor = Color3.fromRGB(255, 50, 50),
 
@@ -314,7 +314,7 @@ function Library:GetDarkerColor(Color)
     local H, S, V = Color3.toHSV(Color);
     return Color3.fromHSV(H, S, V / 1.5);
 end;
-Library._G.AccentColorDark = Library:GetDarkerColor(Library._G.AccentColor);
+Library.AccentColorDark = Library:GetDarkerColor(Library.AccentColor);
 
 function Library:AddToRegistry(Instance, Properties, IsHud)
     local Idx = #Library.Registry + 1;
@@ -482,7 +482,7 @@ do
         });
 
         local Highlight = Library:Create('Frame', {
-            BackgroundColor3 = Library._G.AccentColor;
+            BackgroundColor3 = Library.AccentColor;
             BorderSizePixel = 0;
             Size = UDim2.new(1, 0, 0, 2);
             ZIndex = 17;
@@ -755,7 +755,7 @@ do
                 });
 
                 Library:OnHighlight(Button, Button, 
-                    { TextColor3 = '_G.AccentColor' },
+                    { TextColor3 = 'AccentColor' },
                     { TextColor3 = 'FontColor' }
                 );
 
@@ -794,7 +794,7 @@ do
         end
 
         Library:AddToRegistry(PickerFrameInner, { BackgroundColor3 = 'BackgroundColor'; BorderColor3 = 'OutlineColor'; });
-        Library:AddToRegistry(Highlight, { BackgroundColor3 = '_G.AccentColor'; });
+        Library:AddToRegistry(Highlight, { BackgroundColor3 = 'AccentColor'; });
         Library:AddToRegistry(SatVibMapInner, { BackgroundColor3 = 'BackgroundColor'; BorderColor3 = 'OutlineColor'; });
 
         Library:AddToRegistry(HueBoxInner, { BackgroundColor3 = 'MainColor'; BorderColor3 = 'OutlineColor'; });
@@ -1118,8 +1118,8 @@ do
 
                 KeyPicker.Mode = Mode;
 
-                Label.TextColor3 = Library._G.AccentColor;
-                Library.RegistryMap[Label].Properties.TextColor3 = '_G.AccentColor';
+                Label.TextColor3 = Library.AccentColor;
+                Library.RegistryMap[Label].Properties.TextColor3 = 'AccentColor';
 
                 ModeSelectOuter.Visible = false;
             end;
@@ -1155,9 +1155,9 @@ do
             ContainerLabel.Text = string.format('[%s] %s (%s)', KeyPicker.Value, Info.Text, KeyPicker.Mode);
 
             ContainerLabel.Visible = true;
-            ContainerLabel.TextColor3 = State and Library._G.AccentColor or Library.FontColor;
+            ContainerLabel.TextColor3 = State and Library.AccentColor or Library.FontColor;
 
-            Library.RegistryMap[ContainerLabel].Properties.TextColor3 = State and '_G.AccentColor' or 'FontColor';
+            Library.RegistryMap[ContainerLabel].Properties.TextColor3 = State and 'AccentColor' or 'FontColor';
 
             local YSize = 0
             local XSize = 0
@@ -1470,7 +1470,7 @@ do
             });
 
             Library:OnHighlight(Outer, Outer,
-                { BorderColor3 = '_G.AccentColor' },
+                { BorderColor3 = 'AccentColor' },
                 { BorderColor3 = 'Black' }
             );
 
@@ -1513,9 +1513,9 @@ do
 
                 if Button.DoubleClick then
                     Library:RemoveFromRegistry(Button.Label)
-                    Library:AddToRegistry(Button.Label, { TextColor3 = '_G.AccentColor' })
+                    Library:AddToRegistry(Button.Label, { TextColor3 = 'AccentColor' })
 
-                    Button.Label.TextColor3 = Library._G.AccentColor
+                    Button.Label.TextColor3 = Library.AccentColor
                     Button.Label.Text = 'Are you sure?'
                     Button.Locked = true
 
@@ -1677,7 +1677,7 @@ do
         });
 
         Library:OnHighlight(TextBoxOuter, TextBoxOuter,
-            { BorderColor3 = '_G.AccentColor' },
+            { BorderColor3 = 'AccentColor' },
             { BorderColor3 = 'Black' }
         );
 
@@ -1881,7 +1881,7 @@ do
         });
 
         Library:OnHighlight(ToggleRegion, ToggleOuter,
-            { BorderColor3 = '_G.AccentColor' },
+            { BorderColor3 = 'AccentColor' },
             { BorderColor3 = 'Black' }
         );
 
@@ -1894,11 +1894,11 @@ do
         end
 
         function Toggle:Display()
-            ToggleInner.BackgroundColor3 = Toggle.Value and Library._G.AccentColor or Library.MainColor;
-            ToggleInner.BorderColor3 = Toggle.Value and Library._G.AccentColorDark or Library.OutlineColor;
+            ToggleInner.BackgroundColor3 = Toggle.Value and Library.AccentColor or Library.MainColor;
+            ToggleInner.BorderColor3 = Toggle.Value and Library.AccentColorDark or Library.OutlineColor;
 
-            Library.RegistryMap[ToggleInner].Properties.BackgroundColor3 = Toggle.Value and '_G.AccentColor' or 'MainColor';
-            Library.RegistryMap[ToggleInner].Properties.BorderColor3 = Toggle.Value and '_G.AccentColorDark' or 'OutlineColor';
+            Library.RegistryMap[ToggleInner].Properties.BackgroundColor3 = Toggle.Value and 'AccentColor' or 'MainColor';
+            Library.RegistryMap[ToggleInner].Properties.BorderColor3 = Toggle.Value and 'AccentColorDark' or 'OutlineColor';
         end;
 
         function Toggle:OnChanged(Func)
@@ -2013,20 +2013,20 @@ do
         });
 
         local Fill = Library:Create('Frame', {
-            BackgroundColor3 = Library._G.AccentColor;
-            BorderColor3 = Library._G.AccentColorDark;
+            BackgroundColor3 = Library.AccentColor;
+            BorderColor3 = Library.AccentColorDark;
             Size = UDim2.new(0, 0, 1, 0);
             ZIndex = 7;
             Parent = SliderInner;
         });
 
         Library:AddToRegistry(Fill, {
-            BackgroundColor3 = '_G.AccentColor';
-            BorderColor3 = '_G.AccentColorDark';
+            BackgroundColor3 = 'AccentColor';
+            BorderColor3 = 'AccentColorDark';
         });
 
         local HideBorderRight = Library:Create('Frame', {
-            BackgroundColor3 = Library._G.AccentColor;
+            BackgroundColor3 = Library.AccentColor;
             BorderSizePixel = 0;
             Position = UDim2.new(1, 0, 0, 0);
             Size = UDim2.new(0, 1, 1, 0);
@@ -2035,7 +2035,7 @@ do
         });
 
         Library:AddToRegistry(HideBorderRight, {
-            BackgroundColor3 = '_G.AccentColor';
+            BackgroundColor3 = 'AccentColor';
         });
 
         local DisplayLabel = Library:CreateLabel({
@@ -2047,7 +2047,7 @@ do
         });
 
         Library:OnHighlight(SliderOuter, SliderOuter,
-            { BorderColor3 = '_G.AccentColor' },
+            { BorderColor3 = 'AccentColor' },
             { BorderColor3 = 'Black' }
         );
 
@@ -2056,8 +2056,8 @@ do
         end
 
         function Slider:UpdateColors()
-            Fill.BackgroundColor3 = Library._G.AccentColor;
-            Fill.BorderColor3 = Library._G.AccentColorDark;
+            Fill.BackgroundColor3 = Library.AccentColor;
+            Fill.BorderColor3 = Library.AccentColorDark;
         end;
 
         function Slider:Display()
@@ -2255,7 +2255,7 @@ do
         });
 
         Library:OnHighlight(DropdownOuter, DropdownOuter,
-            { BorderColor3 = '_G.AccentColor' },
+            { BorderColor3 = 'AccentColor' },
             { BorderColor3 = 'Black' }
         );
 
@@ -2313,11 +2313,11 @@ do
             BottomImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png',
 
             ScrollBarThickness = 3,
-            ScrollBarImageColor3 = Library._G.AccentColor,
+            ScrollBarImageColor3 = Library.AccentColor,
         });
 
         Library:AddToRegistry(Scrolling, {
-            ScrollBarImageColor3 = '_G.AccentColor'
+            ScrollBarImageColor3 = 'AccentColor'
         })
 
         Library:Create('UIListLayout', {
@@ -2404,7 +2404,7 @@ do
                 });
 
                 Library:OnHighlight(Button, Button,
-                    { BorderColor3 = '_G.AccentColor', ZIndex = 24 },
+                    { BorderColor3 = 'AccentColor', ZIndex = 24 },
                     { BorderColor3 = 'OutlineColor', ZIndex = 23 }
                 );
 
@@ -2423,8 +2423,8 @@ do
                         Selected = Dropdown.Value == Value;
                     end;
 
-                    ButtonLabel.TextColor3 = Selected and Library._G.AccentColor or Library.FontColor;
-                    Library.RegistryMap[ButtonLabel].Properties.TextColor3 = Selected and '_G.AccentColor' or 'FontColor';
+                    ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
+                    Library.RegistryMap[ButtonLabel].Properties.TextColor3 = Selected and 'AccentColor' or 'FontColor';
                 end;
 
                 ButtonLabel.InputBegan:Connect(function(Input)
@@ -2706,7 +2706,7 @@ do
 
     local WatermarkInner = Library:Create('Frame', {
         BackgroundColor3 = Library.MainColor;
-        BorderColor3 = Library._G.AccentColor;
+        BorderColor3 = Library.AccentColor;
         BorderMode = Enum.BorderMode.Inset;
         Size = UDim2.new(1, 0, 1, 0);
         ZIndex = 201;
@@ -2714,7 +2714,7 @@ do
     });
 
     Library:AddToRegistry(WatermarkInner, {
-        BorderColor3 = '_G.AccentColor';
+        BorderColor3 = 'AccentColor';
     });
 
     local InnerFrame = Library:Create('Frame', {
@@ -2784,7 +2784,7 @@ do
     }, true);
 
     local ColorFrame = Library:Create('Frame', {
-        BackgroundColor3 = Library._G.AccentColor;
+        BackgroundColor3 = Library.AccentColor;
         BorderSizePixel = 0;
         Size = UDim2.new(1, 0, 0, 2);
         ZIndex = 102;
@@ -2792,7 +2792,7 @@ do
     });
 
     Library:AddToRegistry(ColorFrame, {
-        BackgroundColor3 = '_G.AccentColor';
+        BackgroundColor3 = 'AccentColor';
     }, true);
 
     local KeybindLabel = Library:CreateLabel({
@@ -2907,7 +2907,7 @@ function Library:Notify(Text, Time)
     });
 
     local LeftColor = Library:Create('Frame', {
-        BackgroundColor3 = Library._G.AccentColor;
+        BackgroundColor3 = Library.AccentColor;
         BorderSizePixel = 0;
         Position = UDim2.new(0, -1, 0, -1);
         Size = UDim2.new(0, 3, 1, 2);
@@ -2916,7 +2916,7 @@ function Library:Notify(Text, Time)
     });
 
     Library:AddToRegistry(LeftColor, {
-        BackgroundColor3 = '_G.AccentColor';
+        BackgroundColor3 = 'AccentColor';
     }, true);
 
     pcall(NotifyOuter.TweenSize, NotifyOuter, UDim2.new(0, XSize + 8 + 4, 0, YSize), 'Out', 'Quad', 0.4, true);
@@ -2974,7 +2974,7 @@ function Library:CreateWindow(...)
 
     local Inner = Library:Create('Frame', {
         BackgroundColor3 = Library.MainColor;
-        BorderColor3 = Library._G.AccentColor;
+        BorderColor3 = Library.AccentColor;
         BorderMode = Enum.BorderMode.Inset;
         Position = UDim2.new(0, 1, 0, 1);
         Size = UDim2.new(1, -2, 1, -2);
@@ -2984,7 +2984,7 @@ function Library:CreateWindow(...)
 
     Library:AddToRegistry(Inner, {
         BackgroundColor3 = 'MainColor';
-        BorderColor3 = '_G.AccentColor';
+        BorderColor3 = 'AccentColor';
     });
 
     local WindowLabel = Library:CreateLabel({
@@ -3214,7 +3214,7 @@ function Library:CreateWindow(...)
             });
 
             local Highlight = Library:Create('Frame', {
-                BackgroundColor3 = Library._G.AccentColor;
+                BackgroundColor3 = Library.AccentColor;
                 BorderSizePixel = 0;
                 Size = UDim2.new(1, 0, 0, 2);
                 ZIndex = 5;
@@ -3222,7 +3222,7 @@ function Library:CreateWindow(...)
             });
 
             Library:AddToRegistry(Highlight, {
-                BackgroundColor3 = '_G.AccentColor';
+                BackgroundColor3 = 'AccentColor';
             });
 
             local GroupboxLabel = Library:CreateLabel({
@@ -3314,7 +3314,7 @@ function Library:CreateWindow(...)
             });
 
             local Highlight = Library:Create('Frame', {
-                BackgroundColor3 = Library._G.AccentColor;
+                BackgroundColor3 = Library.AccentColor;
                 BorderSizePixel = 0;
                 Size = UDim2.new(1, 0, 0, 2);
                 ZIndex = 10;
@@ -3322,7 +3322,7 @@ function Library:CreateWindow(...)
             });
 
             Library:AddToRegistry(Highlight, {
-                BackgroundColor3 = '_G.AccentColor';
+                BackgroundColor3 = 'AccentColor';
             });
 
             local TabboxButtons = Library:Create('Frame', {
@@ -3541,7 +3541,7 @@ function Library:CreateWindow(...)
 
                     local mPos = InputService:GetMouseLocation();
 
-                    Cursor.Color = Library._G.AccentColor;
+                    Cursor.Color = Library.AccentColor;
 
                     Cursor.PointA = Vector2.new(mPos.X, mPos.Y);
                     Cursor.PointB = Vector2.new(mPos.X + 16, mPos.Y + 6);
